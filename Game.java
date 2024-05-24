@@ -57,10 +57,10 @@ class Room{
         return requiredItem;
     }
     public String getLongDescription() {
-        return "You are " + roomname + ".\n" + "You can go to \n" + getExitString();
+        return "You are at " + roomname + ".\n" + "You can go to \n" + getExitString();
     }
 
-    public void getStoryPlot(String plot){
+    public void setStoryPlot(String plot){
         storyPlot=plot;
     }
 
@@ -142,6 +142,8 @@ public class Game {
         cabin.setExit("Room-4", cabin4);
         cabin.setExit("Outside", outside);
 
+        cabin.setStoryPlot("Entering upon the building you see some rooms within your line of site. Looks like a cabin of some sorts. Something might be useful might be in those rooms.");
+
         cabin1.setExit("Cabin", cabin);
         cabin2.setExit("Cabin", cabin);
         cabin3.setExit("Cabin", cabin);
@@ -152,9 +154,13 @@ public class Game {
         ruin.setExit("Area-2", ruinc);
         ruin.setExit("Outside", outside);
 
+        ruin.setStoryPlot("You enter an ancient ruin. What mysteries lie inside needs to be explored to be found out!");
+
         ruina.setExit("Ruins", ruin);
         ruinb.setExit("Ruins", ruin);
         ruinc.setExit("Ruins", ruin);
+
+        ruina.setStoryPlot("With great difficulty, you clear the path to a once grandeur altar room. You see a podium upon which lies an object. You can feel its pulsating power even from here. Take a closer look maybe?");
 
         house.setExit("Bedroom", houser2);
         house.setExit("Study", houser3);
@@ -164,10 +170,14 @@ public class Game {
 
         house.setRequiredItem("House key (Story item)");
 
+        house.setStoryPlot("You have entered into the locked house. On closer inspection, you find the house to have potraits of the hero spoken about in the legends, who saved the world from ruin few decades ago");
+
         houser1.setExit("House", house);
         houser2.setExit("House", house);
         houser3.setExit("House", house);
         houseb.setExit("House", house);
+
+        houseb.setStoryPlot("As you walk into the decripit basement, you feel the presence of light energy around. But all you see are boxes all around. Take a closer look!");
 
         houseb.setRequiredItem("Basement key (Story item)");
         
@@ -182,6 +192,7 @@ public class Game {
         ruinb.addItem("Potion (common)");
         ruinc.addItem("Shattered stones (useless)");
         ruinc.addItem("Magic bullets (rare)");
+        
 
         houser1.addItem("Flower (useless)");
         houser1.addItem("Mirror (useless)");
@@ -260,7 +271,6 @@ public class Game {
     }
 
     private void search(){
-        System.out.println(player.getCurrentRoom().getLongDescription());
         player.getCurrentRoom().setSearched(true);
         List<String> items = player.getCurrentRoom().getItems();
         if (items.isEmpty() || items==null) {
@@ -268,6 +278,7 @@ public class Game {
         } else {
             System.out.println("You see: " + String.join(", ", items));
         }
+        System.out.println(player.getCurrentRoom().getLongDescription());
     }
 
     private void take(){
